@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @order.name %>
+</p>
+
+<p>
+  <strong>Адрес:</strong>
+  <%= @order.address %>
+</p>
+
+<p>
+  <strong>Почта:</strong>
+  <%= @order.email %>
+</p>
+
+<p>
+  <strong>Тип оплаты:</strong>
+  <%= @order.pay_type %>
+</p>
+
+<% @line_item.each do |line_item|%>
+<%= line_item.quantity %>x
+<%= line_item.product.model %><br>
+
+<%end%>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

@@ -1,0 +1,7 @@
+<% if @cart.line_items.find_by_product_id(product).nil? %>
+<%= button_to line_items_path(product_id: product), remote: true, class: "cartBrand " do %>
+<i class="fa fa-cart-arrow-down fa-lg"></i>&nbspКупить	
+<%end%>
+ <% else %>
+ <span class="inCart">Товар в корзине</span>
+ <%end%>

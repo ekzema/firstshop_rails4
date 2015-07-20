@@ -1,0 +1,17 @@
+
+<div id="showCart" title="Ваша корзина покупок">
+<%= link_to  "#openModal", class: 'modlink' do%>
+<img src="/cart.png" alt="Корзина покупок">
+<span id="countItem" class="hideTxt"><%= pluralize(@cart.line_items.to_a.sum{|item| item.quantity}, "товар", "товаров") %></span>
+
+<span class="totalHide" total="<%= @cart.line_items.count %>"><%= sprintf("%d", cart.total_price * @course.to_i).gsub(/(\d)(?=\d{3}+$)/, '\1 ') %><span id="uah">грн</span></span>
+
+<% end %>
+
+<!-- START_HIGHLIGHT -->
+
+<!-- END_HIGHLIGHT -->
+
+<%= link_to "", cart, method: :delete, data: { confirm: "Вы уверины что очичтить корзину?" }, class: "trashCart2", title: "Очистить корзину"  %>
+
+</div>

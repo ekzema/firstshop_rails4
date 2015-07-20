@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="description" content="<%= @product.meta_description.present? ? @product.meta_description : @header.description %>">
+    <meta name="keywords" content="<%= @product.meta_keywords.present? ? @product.meta_keywords : @header.keywords %>">  
+    <meta name="author" lang="ru" content="<%= @header.author %>">
+    <title><%= @product.model.present? ? @product.model : @header.title %></title>
+    <%= stylesheet_link_tag    '/font-awesome/css/font-awesome.css' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>    
+    <%= stylesheet_link_tag    '/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7', media: "screen" %>
+    <%= stylesheet_link_tag    '/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5', media: "screen" %>
+    <%= stylesheet_link_tag    '/fancybox/source/jquery.fancybox.css?v=2.1.5', media: "screen" %>
+    <%= stylesheet_link_tag    '/slick/slick.css' %>
+    <%= stylesheet_link_tag    '/parsley/parsley.css' %>
+    <%= stylesheet_link_tag    '/css-breadcrumb/css-breadcrumb.css' %> 
+    <%= javascript_include_tag 'application'%>
+    <%= javascript_include_tag '/slick/slick.js'%>
+    <%= javascript_include_tag '/fancybox/fancybox.js'%>
+    <%= javascript_include_tag '/fancybox/lib/jquery.mousewheel-3.0.6.pack.js'%>
+    <%= javascript_include_tag '/fancybox/source/jquery.fancybox.pack.js?v=2.1.5'%>
+    <%= javascript_include_tag '/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5'%>
+    <%= javascript_include_tag '/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6'%>
+    <%= javascript_include_tag '/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7'%>
+    <%= javascript_include_tag '/parsley/parsley.min.js'%>    
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+        <script type="text/javascript">
+    $(document).ready(function(){      
+$('.formHide').hide();
+$('.commentHide').click(function () {
+    if ($(this).next('.formHide').is(':visible')) {
+        $(this).next('.formHide').hide(400);
+        $(this).text('Ответить');
+    } else {
+        $(this).next('.formHide').show(400);
+        $(this).text('Скрыть');
+    }
+});
+
+    });
+  </script>
+  <style>
+  /*showe product BEGIN*/
+.columnTitle{
+  border-bottom:1px solid #FFE5B5;
+  width: 200px; 
+}
+
+.tdBlank{
+  width: 5px;
+}
+
+.column2{
+  width: 585px;
+  border-bottom:1px solid #FFE5B5;
+}
+/*showe product END*/
+  </style>
+  <div class="mainContent">
+     <div id="fixPanel">
+      <%= render "catalogs/nav" %>
+<ul class="panel2">
+          <li>
+            <a href="#" class="clearLink"><img src="/panel2/contacts.png" alt="Контакты" title="Контакты"><br>Контакты</a>
+          </li>
+          <li>
+            <a href="#" class="clearLink"><img src="/panel2/about.png" alt="О нас" title="О нас"><br>О нас</a>
+          </li>
+          <li>
+            <a href="#" class="clearLink"><img src="/panel2/guarantee.png" alt="Гарантии" title="Гарантии"><br>Гарантии</a>
+          </li>
+          <li>
+            <a href="#" class="clearLink"><img src="/panel2/pay.png" alt="Оплата и доставка" title="Оплата и доставка"><br>Оплата<span class="hideTxt"> и доставка</span></a>
+          </li>     
+          <% if @cart %>
+            <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
+              <%= render :partial => 'carts/cart', :object => @cart %>
+            <% end %>
+          <% end %>
+        </ul>
+    </div>
+   
+      <center >        
+        <%= form_tag({:controller => "search", :action => "result"}, method: "get", class: "search searchCentr searchCentrShow", "data-parsley-validate" => true) do %>
+          <%= text_field_tag(:q, nil, placeholder: "Поиск товара", class: "input", "required" => true,"data-parsley-error-message" => false) %>
+          <%= button_to do %>
+            <i class="fa fa-search fa-lg"></i></i>&nbspНайти
+          <% end %>
+        <% end %>
+     </center>
+
+     <center>
+      <% if notice %>
+        <p id="notice"><%= notice %></p>
+      <% end %>
+    </center>
+    <div class="fixedStep"></div>
+<div class="containerWrap">
+  <div class="container">
+    <div id="breadcrumbs">
+      <div class="button">
+        <span class="label"><%= link_to "Главная", :root, title: "Главная", class: "clearLink"%></span>
+        <span class="arrow"><span></span></span>
+      </div>
+      <div class="button">
+        <span class="label"><%= link_to @product.brand.box.catalog.name, catalog_path(@product.brand.box.catalog), title: @product.brand.box.catalog.name, class: "clearLink"%></span>
+        <span class="arrow"><span></span></span>
+      </div>  
+      <div class="button">
+        <span class="label"><%= link_to @product.brand.box.name, @product.brand.box, title: @product.brand.box.name, class: "clearLink"%></span>
+        <span class="arrow"><span></span></span>
+      </div>
+      <div class="button">
+        <span class="label"><%= link_to @product.brand.name, @product.brand, title: @product.brand.name, class: "clearLink" %></span>
+        <span class="arrow"><span></span></span>
+      </div>
+      <div class="button">
+        <span class="label"><%= link_to @product.model, @product, title: @product.model, class: "clearLink prshow" %></span>
+        <span class="arrow"><span></span></span>
+      </div>    
+    </div>
+  </div>
+</div>     
+      <%= yield %>
+      
+     <div id="openModal" class="modalDialog">
+     <div class="modalContent">
+    <a href="#close" title="Close" class="close">X</a>
+    <h2><i class="fa fa-cart-arrow-down fa-lg cartcolor"></i>Ваша корзина</h2>
+     <div id="carthide">
+      <%= render 'carts/carthide'%>
+      
+     </div>
+        </div>
+      </div> 
+      
+     
+  <div class="footerWall"></div>
+    
+    <div class="footer">
+  <div class="footerLink">
+    <ul>
+      <li><a href="/"><i class="fa fa-home fa-2x"></i></a></li>
+      <% @catalogs.each do |catalog| %>
+      <li><%= link_to "#{catalog.name}<i class='fa fa-caret-up' style='margin-left:3px; font-size:11px;'></i>".html_safe, '#' %></li>
+      <%end%>
+      <div class="clear"></div>
+    </ul>
+  </div> 
+  <a href="https://github.com/ekzema/firstshop_rails4" target="_blank" style="color:#B5B5B5;"><i class="fa fa-github fa-4x"></i></a>
+  <center><div style="margin:10px 0 0 0;">
+  <!--LiveInternet counter--><script type="text/javascript">document.write("<a href='//www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t44.6;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' border=0 width=31 height=31 alt='' title='LiveInternet'><\/a>")</script><!--/LiveInternet-->
+   </div></center>
+    <div class="copyright" style="margin:0 0 10px 0;">Copyright © 2015.</div>
+  </div>
+  </div>
+  </body>
+</html>

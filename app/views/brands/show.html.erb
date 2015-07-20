@@ -1,0 +1,77 @@
+<div class="containerWrap">
+	<div class="container">
+		<div id="breadcrumbs">
+			<div class="button">
+				<span class="label"><%= link_to "Главная", :root, title: "Главная", class: "clearLink"%></span>
+				<span class="arrow"><span></span></span>
+			</div>
+			<div class="button">
+				<span class="label"><%= link_to @brand.box.catalog.name, catalog_path(@brand.box.catalog), title: @brand.box.catalog.name, class: "clearLink"%></span>
+				<span class="arrow"><span></span></span>
+			</div>	
+		  <div class="button">
+				<span class="label"><%= link_to @brand.box.name, @brand.box, title: @brand.box.name, class: "clearLink" %></span>
+				<span class="arrow"><span></span></span>
+			</div>
+			<div class="button">
+				<span class="label"><%= link_to @brand.name, @brand, title: @brand.name, class: "clearLink brshow" %></span>
+				<span class="arrow"><span></span></span>
+			</div>		
+		</div>
+	</div>
+</div>
+<hr color="#EDEDED" noshade size="1">
+<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-angle-double-right" style="color:#00A9FE;"></i>&nbsp;<%= @brand.box.name+" "+@brand.name%>
+	<% if admin_signed_in? %>
+	| <%= link_to '<i class="fa fa-pencil" style="color:#10C300;"></i>'.html_safe, edit_brand_path, class: "clearLink", title: "Редактировать" %>
+	<%end%>
+</h2>
+<br>
+<% if admin_signed_in? %>
+<p class="newWrite"><%= link_to '<i class="fa fa-plus fa-lg"></i> Добавить новый товар'.html_safe, new_brand_product_path(@brand.id), class: "writeLink" %></p>
+<br>
+<%end%>
+</h2>
+<br>
+<%= form_tag({:url => brand_path}, method: "get", id: "product_search") do %>
+	<div class="boxes">
+	  <% @filtr.each do |filtr| %>
+	    <%= check_box_tag "product[]", filtr.id, (), id: dom_id(filtr)%>
+	    <%= label_tag  dom_id(filtr), filtr.body %>
+	  <% end %>   
+	 </div>
+<% end %>
+<div id="category"><%= render 'boxes/box_product' %></div>
+<br>
+<hr color="#EDEDED" noshade size="1">
+<br>
+<script type="text/javascript">
+$(function () {
+	$('input[type=checkbox]').change(function () {
+		$.get($('#product_search ').attr('action'),
+			$('#product_search').serialize(), null, 'script');
+		return false;		
+	});
+
+	$('#product_search').submit(function () {
+		$.get(this.action, $(this).serialize(), null, 'script');
+		return false;
+	});
+});
+
+</script>
+
+<style>
+.label .brshow{    
+    color: black;
+    line-height: 30px;
+    padding: 5px;
+}
+
+.label .brshow:hover{
+    color: black;
+}
+</style>
+
+
+

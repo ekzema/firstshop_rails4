@@ -1,0 +1,101 @@
+<br>
+<h3 align="center"><span class="commentTitle">Добавить фотографии:</span></h3><br>
+
+<%= nested_form_for([@brand, @product], html: { :class => "commentForm", multipart: true }) do |f| %>
+  
+<%= image_tag @product.image_product.url(:thumb), title: "#{@product.model}", class: "EditImage" %><%= f.file_field :image_product %><% unless @product.image_product_file_name.nil? %>
+ <%= link_to("Удалить", {action: :delete_attachment, id: @product.id}, method: :put, data: { confirm: 'Вы уверины что хотите удалить?' }) %>
+ <% end %><br><br>
+
+<% @product.imagespecs.each do |imgspecmain| %>
+  <%= f.fields_for :imagespecs, imgspecmain do |imgspec| %>
+   <%= image_tag imgspecmain.image.url(:thumb)%><%= imgspec.file_field :image %>
+    <%=  imgspec.link_to_remove "Удалить" %>
+    <% end %>
+   <% end %>
+  
+   <p><%= f.link_to_add "Добавить картинку", :imagespecs %></p><br>
+
+
+<h3 align="center"><span class="commentTitle">Привязка к фильтру:</span></h3><br>
+<% @filtr.each do |filtr| %>
+  <tr> 
+      <%= hidden_field_tag("product[filtr_ids][]", nil) %>
+      <%= check_box_tag "product[filtr_ids][]", filtr.id, @product.filtr_ids.include?(filtr.id), id: dom_id(filtr)  %>
+      <%= label_tag dom_id(filtr), filtr.body %> <br>
+    </tr>
+<%end%>
+<br>
+
+<%= hidden_field_tag("product[recommend]", nil) %>
+<%= check_box_tag('product[recommend]', 1, @product.recommend, id: dom_id(@product)) %>
+<%= label_tag dom_id(@product), "Рекомендовать" %><br>
+
+
+<h3 align="center"><span class="commentTitle">Оптимизация для поисковых машин:</span></h3><br>
+  <div class="field">
+    <%= f.label "Ключевые слова для поисковых машин" %>
+    <%= f.text_field :meta_keywords, :size => 120 %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Описание товара" %><br />
+    <%= f.text_area :meta_description, :rows => 5, :cols => 103 %>
+  </div>
+
+<h3 align="center"><span class="commentTitle">Добавить описание:</span></h3><br>
+  <div class="field">
+    <%= f.label :Название %><br />
+    <%= f.text_field :model, :size => 120 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Описание %><br />
+    <%= f.text_area :description, :rows => 5, :cols => 103 %>
+  </div>
+ 
+  <div class="field">
+    <%= f.label :Доп_информация %><br />
+    <%= f.text_area :addinformation, :rows => 5, :cols => 103 %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Цена в долларах"%><br />
+    <%= f.text_field :price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Гарантия %><br />
+    <%= f.text_field :warranty %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Производитель %><br />
+    <%= f.text_field :madein %>
+  </div>
+<br>
+
+<h3 align="center"><span class="commentTitle">Добавить характеристики:</span></h3><br>
+
+<%= f.fields_for :specifications do |spec| %>
+<p>
+    <%= spec.label :Заголовок %><br />
+    <%= spec.text_field :title %>
+    <%= spec.text_field :column_1 %>    
+   <%=  spec.link_to_remove "Удалить" %>
+  </p>
+<% end %>
+
+    <p><%= f.link_to_add "Добавить строку", :specifications %></p>
+ <center>
+    <%= button_to do %>
+  <i class="fa fa-floppy-o fa-lg"></i>&nbspСохранить товар
+<% end %>
+ </center>
+<% end %>
+
+
+
+
+
+

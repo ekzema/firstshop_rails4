@@ -1,0 +1,12 @@
+//#START_HIGHLIGHT
+$("#notice").hide();
+
+//#END_HIGHLIGHT
+if ($('#cart #showCart ').length == 1) { $('#cart').show('fade', 1000); }
+
+$('#cart').html("<%=j render @cart %>");
+<% @d2 = "1" %>
+$('#carthide').html("<%=j render 'carts/carthide'%>");
+$('#buttoncart<%=@product.id%>').html("<%=j render 'carts/buttoncart2', :product => @product.id, :product2 => @d2%>");
+
+

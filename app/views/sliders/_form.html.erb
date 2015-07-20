@@ -1,0 +1,20 @@
+<%= form_for @slider, html: { multipart: true, "data-parsley-validate" => true, :class => "sliderForm" } do |f| %>
+   <div class="field">
+    <span class="redField">* </span><%= f.label :Название %><br />
+    <%= f.text_field :name, "required" => true, "data-parsley-trigger" => "change", "data-parsley-error-message" => "Заполните это поле!" %>
+  </div>
+  <div class="field">
+    <%= f.label :Ссылка %><br />
+    <%= f.text_field :url_item %>
+  </div>
+<div class="field">
+  <span class="redField">* </span><%= f.label :Загрузить_изображение %><br>  
+ <%= image_tag @slider.image.url(:thumb), class: "EditImage imageInput" %><%= f.file_field :image %>
+ </div>
+
+  <div class="actions">
+    <%= button_to do %>
+  <i class="fa fa-floppy-o"></i>&nbspСохранить
+<% end %>
+  </div>
+<% end %>

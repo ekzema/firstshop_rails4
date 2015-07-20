@@ -1,0 +1,38 @@
+<div class="containerWrap">
+	<div class="container">
+		<div id="breadcrumbs">
+			<div class="button">
+				<span class="label"><%= link_to "Главная", :root, title: "Главная", class: "clearLink"%></span>
+				<span class="arrow"><span></span></span>
+			</div>			
+			<div class="button">
+				<span class="label"><%= link_to "Настройка сайта", admin_panel_url, title: "Настройка сайта", class: "clearLink bshow"%></span>
+				<span class="arrow"><span></span></span>
+			</div>		
+		</div>
+	</div>
+</div>
+<hr color="#EDEDED" noshade size="1">
+<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-angle-double-right" style="color:#00A9FE;"></i>&nbsp;Настройка сайта:</h2>><br>
+<ul class="setSitePage" style="font-size:15px">
+	<span style="color:green; font-size:20px">У нас имеется <%= pluralize(@total_orders, "order") %>.</span>
+  <li><%= link_to 'Заказы',   orders_path, class: "clearLink", title: "Заказы" %></li>
+  <li><%= link_to 'Товары', products_path, class: "clearLink", title: "Товары" %></li>
+  <% if current_admin.name == @rootadmin %>
+	  <li><%= link_to 'Администраторы', all_admins_url, class: "clearLink", title: "Администраторы" %></li>
+	  <li><%= link_to 'Оптимизация сайта через "HEADER"', header_sites_index_url, class: "clearLink", title: 'Оптимизация сайта через "HEADER"' %></li>
+	  <li><%= link_to 'Управление сайтом', setting_pages_index_url, class: "clearLink", title: "Управление сайтом" %></li>
+	<% end %>
+</ul>
+
+<style>
+.label .bshow{    
+    color: black;
+    line-height: 30px;
+    padding: 5px;
+}
+
+.label .bshow:hover{
+    color: black;
+}
+</style>

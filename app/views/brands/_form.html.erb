@@ -1,0 +1,22 @@
+<%= form_for([@box, @brand], html: { multipart: true }) do |f| %>
+    <div class="field">
+    <%= f.label :Название %><br />
+    <%= f.text_field :name %>
+  </div>
+
+
+  <%= image_tag @brand.image_brand.url(:thumb), title: "#{@brand.name}", class: "EditImage" %><%= f.file_field :image_brand %><% unless @brand.image_brand_file_name.nil? %>
+ <%= link_to("Удалить", {action: :delete_attachment, id: @brand.id}, method: :put,data: { confirm: 'Вы уверины что хотите удалить?' }) %>
+ <% end %><br><br>
+
+
+  <div class="actions">
+    <%= f.submit 'Сохранить' %>
+  </div>
+<% end %>
+
+
+ 
+
+
+

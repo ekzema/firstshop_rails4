@@ -1,0 +1,48 @@
+<div class="containerWrap">
+	<div class="container">
+		<div id="breadcrumbs">
+			<div class="button">
+				<span class="label"><%= link_to "Главная", :root, title: "Главная", class: "clearLink"%></span>
+				<span class="arrow"><span></span></span>
+			</div>			
+			<div class="button">
+				<span class="label"><%= link_to "Настройка сайта", admin_panel_url, title: "Настройка сайта", class: "clearLink"%></span>
+				<span class="arrow"><span></span></span>
+			</div>		
+			<div class="button">
+				<span class="label"><%= link_to "Управление сайтом", setting_pages_index_url, title: "Управление сайтом", class: "clearLink bshow"%></span>
+				<span class="arrow"><span></span></span>
+			</div>		
+		</div>
+	</div>
+</div>
+<hr color="#EDEDED" noshade size="1">
+<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-angle-double-right" style="color:#00A9FE;"></i>&nbsp;Настройка вида сайта:</h2>><br>
+<div class="setSitePage">
+<%= form_tag(("update"), {:method => :put}) do |f| %>
+	<div>
+	  <%= label_tag(:course, "Курс доллара к гривне:") %><br>
+	  <%= text_field_tag(:course, @setting.course, :size => 10) %>
+	 </div>
+
+	<%= check_box_tag(:comments, 1, checked = @setting.comments ) %>
+	<%= label_tag(:comments, "Комментарии(on/off)") %><br>
+
+	<%= check_box_tag(:sliders, 1, checked = @setting.sliders ) %>
+	<%= label_tag(:sliders, "Слайды(on/off)") %><br>
+
+	  <%= submit_tag("Сохранить") %> 
+	<% end %>
+</div>
+
+<style>
+.label .bshow{    
+    color: black;
+    line-height: 30px;
+    padding: 5px;
+}
+
+.label .bshow:hover{
+    color: black;
+}
+</style>

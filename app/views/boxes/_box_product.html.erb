@@ -1,0 +1,84 @@
+<style>
+/*Page styles*/
+
+.boxes {
+  margin: auto;
+  padding: 5px;
+ 
+}
+
+/*Checkboxes styles*/
+input[type="checkbox"] { display: none; }
+
+input[type="checkbox"] + label:hover{
+	color: black;
+}
+
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding: 0 0 0 28px;    
+  font: 14px 'Roboto Condensed', sans-serif;;
+  color: black;  
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child { margin-bottom: 0; }
+
+input[type="checkbox"] + label:before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  border: 1px solid silver;
+  border-radius: 3px;
+  background-color: #FFF7CD;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: .6;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s, border-color .08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  border-color: green;
+  border-width: 2px;
+  opacity: 1;
+  background-color: white;
+  border-top-color: transparent;
+  border-left-color: transparent;
+
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>
+<ul class="LinkMenuCatalog">
+	<% @products.each do |product| %>
+		<div class="floatLinkCatalog">
+			<li>		
+		<%= link_to(product, class: "clearLink") do %>
+		<%= image_tag product.image_product.url(:thumb), title: "#{product.model}" %><br>
+	  <span><%= product.model %></span><br>
+	 <%end%>
+	 <span class="priceCatalog"><%= product.price * @course.to_i %> грн</span>
+	 <% if admin_signed_in? %>
+	<%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_product_path(product), class: "ctalogRightA clearLink" %>
+	<%= link_to '<i class="fa fa-times"></i>'.html_safe, product, class: "catalogLeftA clearLink", method: :delete, data: { confirm: "Вы уверины что хотите удалить \"#{product.model}\"" }, title: "Удалить" %>
+	 <%end%>
+
+   <div id="buttoncart<%=product.id%>">
+    <%= render 'carts/buttoncart', :product => product %>
+    </div>
+    </li>
+    </div>  
+<%end%>
+</ul>
+<p><%= will_paginate @products, previous_label: '<i class="fa fa-chevron-circle-left fa-lg"></i>'.html_safe, next_label: '<i class="fa fa-chevron-circle-right fa-lg"></i>'.html_safe %></p>

@@ -1,0 +1,44 @@
+<div class="containerWrap">
+	<div class="container">
+		<div id="breadcrumbs">
+			<div class="button">
+				<span class="label"><%= link_to "Главная", :root, title: "Главная", class: "clearLink"%></span>
+				<span class="arrow"><span></span></span>
+			</div>			
+			<div class="button">
+				<span class="label"><%= link_to "Настройка сайта", admin_panel_url, title: "Настройка сайта", class: "clearLink"%></span>
+				<span class="arrow"><span></span></span>
+			</div>		
+			<div class="button">
+				<span class="label"><%= link_to 'Администраторы', all_admins_url, title: 'Администраторы', class: "clearLink bshow"%></span>
+				<span class="arrow"><span></span></span>
+			</div>		
+		</div>
+	</div>
+</div>
+<hr color="#EDEDED" noshade size="1">
+<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-angle-double-right" style="color:#00A9FE;"></i>&nbsp;Администраторы:</h2>><br>
+<div class="setSitePage">
+<% @admins.each do |admin| %>
+<% unless admin.name == @rootadmin %>
+<%= admin.name %>
+<%= link_to '<i class="fa fa-times"></i>'.html_safe, {action: :destroy_admins, :controller=>"admins/registrations",  id: admin.id}, method: :put, data: { confirm: "Вы уверины что хотите удалить #{admin.name}? "}, class: "clearLink", title: "Удалить" %><br>
+<%end%>
+<%end%>
+</div>
+
+<style>
+.label .bshow{    
+    color: black;
+    line-height: 30px;
+    padding: 5px;
+}
+
+.label .bshow:hover{
+    color: black;
+}
+</style>
+
+
+
+

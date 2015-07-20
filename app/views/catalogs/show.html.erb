@@ -1,0 +1,23 @@
+<h2><%= @catalog.name %>&nbsp&nbsp<%= link_to '<i class="fa fa-reply fa-lg"></i>'.html_safe, catalogs_path %> 
+<%= link_to '| <i class="fa fa-pencil"></i>'.html_safe, edit_catalog_path if admin_signed_in? %></h2>
+<br>
+
+<div class="wrapperDiv">
+	<% @box.each do |box| %>                
+  	<ul class="boxImage">
+      <li>
+      	<div class="zWraper">
+        	<%= link_to(box, class: "clearLink") do %>
+	        	<%= image_tag box.image.url(:medium), title: "#{box.name}" %><br>
+	        	<%= (box.name) %>
+  				<% end %> 
+         	<% if admin_signed_in? %>
+         		<%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_box_path(box), class: "boxLeftA clearLink", title: "Изменить" %><%= link_to '<i class="fa fa-times"></i>'.html_safe, box, method: :delete, data: { confirm: "Вы уверины что хотите удалить \"#{box.name}\""}, class: "boxRightA clearLink", title: "Удалить" %>
+         	<% end %> 
+         </div>
+      </li>
+   	</ul>                 
+  <% end %>
+  <div class="clear"></div>   
+</div>            
+ 

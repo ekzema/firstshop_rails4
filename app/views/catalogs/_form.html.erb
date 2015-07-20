@@ -1,0 +1,17 @@
+
+<%= form_for @catalog, html: { multipart: true } do |f| %>
+    <div class="field">
+    <%= f.label :Название %><br />
+    <%= f.text_field :name %>
+  </div>
+
+
+  <%= image_tag @catalog.image_catalog.url(:thumb), class: "EditImage" %><%= f.file_field :image_catalog %><% unless @catalog.image_catalog_file_name.nil? %>
+ <%= link_to("Удалить", {action: :delete_attachment, id: @catalog.id}, method: :put,data: { confirm: 'Вы уверины что хотите удалить?' }) %>
+ <% end %><br><br>
+
+
+  <div class="actions">
+    <%= f.submit 'Сохранить' %>
+  </div>
+<% end %>

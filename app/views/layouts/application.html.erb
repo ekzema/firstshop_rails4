@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<%= @description.present? ? @description : @header.description %>">
+    <meta name="keywords" content="<%= @keywords.present? ? @keywords : @header.keywords %>">  
+    <meta name="author" lang="ru" content="<%= @header.author %>">
+    <title><%= @title.present? ? @title : @header.title %></title>
+    <%= stylesheet_link_tag    '/font-awesome/css/font-awesome.css' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>   
+    <%= stylesheet_link_tag    '/parsley/parsley.css' %>  
+    <%= stylesheet_link_tag    '/slick/slick.css' %>
+    <% unless current_page?(root_path)  %>  
+      <%= stylesheet_link_tag    '/css-breadcrumb/css-breadcrumb.css' %>
+    <% end %>
+    <%= javascript_include_tag 'application'%>
+    <%= javascript_include_tag '/slick/slick.js'%>
+    <%= javascript_include_tag '/parsley/parsley.min.js'%>     
+    <%= csrf_meta_tags %>    
+  </head>
+  <body>
+    <div class="mainContent">
+
+      <div id="fixPanel">
+        <%= render "catalogs/nav" %>
+        <ul class="panel2">
+          <li>
+            <a href="#" class="clearLink"><img src="/panel2/contacts.png" alt="Контакты" title="Контакты"><br>Контакты</a>
+          </li>
+          <li>
+            <a href="#" class="clearLink"><img src="/panel2/about.png" alt="О нас" title="О нас"><br>О нас</a>
+          </li>
+          <li>
+            <a href="#" class="clearLink"><img src="/panel2/guarantee.png" alt="Гарантии" title="Гарантии"><br>Гарантии</a>
+          </li>
+          <li>
+            <a href="#" class="clearLink"><img src="/panel2/pay.png" alt="Оплата и доставка" title="Оплата и доставка"><br>Оплата<span class="hideTxt"> и доставка</span></a>
+          </li>     
+          <% if @cart %>
+            <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
+              <%= render :partial => 'carts/cart', :object => @cart %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>   
+
+      <% if current_page?(root_path)  %>
+        <% unless SettingPage.first.sliders.nil? %>
+          <% unless Slider.count.zero? %>  
+            <div id="wrapSlick">
+              <div class="slickBaner">     
+                <% @slickslider.each do |slickslider| %>
+                  <div>
+                    <%= link_to slickslider.url_item do %>
+                      <%= image_tag slickslider.image.url(:medium), alt: slickslider.name, title: slickslider.name%>
+                    <%end%>  
+                  </div>
+                <%end%>    
+              </div> 
+            </div>         
+          <% end %>
+        <% end %>
+      <% end %>   
+      <center>
+      <%= form_tag({:controller => "search", :action => "result"}, method: "get", class: "search searchCentr searchCentrShow", "data-parsley-validate" => true) do %>  
+        <%= text_field_tag(:q, nil, placeholder: "Поиск товара", class: "input", "required" => true,"data-parsley-error-message" => false) %>
+        <%= button_to do %>
+          <i class="fa fa-search fa-lg"></i></i>&nbspНайти
+        <% end %>
+      <% end %>     
+       </center>  
+      <div class="clear"></div>
+      <div class="fixedStep"></div>
+       
+        <center>
+          <% if notice %>
+            <p id="notice"><%= notice %></p><br>
+          <% end %>
+        </center>  
+          
+        <%= yield %>
+               
+       <div id="openModal" class="modalDialog">
+       <div class="modalContent">
+      <a href="#close" title="Close" class="close">X</a>
+      <h2><i class="fa fa-cart-arrow-down fa-lg cartcolor"></i>Ваша корзина</h2>
+       <div id="carthide">
+        <%= render 'carts/carthide'%>      
+      </div>
+     </div>
+       </div>
+   
+      
+   <div class="footerWall"></div>
+    <div class="footer">
+    <div class="footerLink">
+      <ul>
+        <li><a href="/"><i class="fa fa-home fa-2x"></i></a></li>
+        <% @catalogs.each do |catalog| %>
+        <li><%= link_to "#{catalog.name}<i class='fa fa-caret-up' style='margin-left:3px; font-size:11px;'></i>".html_safe, '#' %></li>
+        <%end%>
+        <div class="clear"></div>
+      </ul>
+    </div> 
+    <a href="https://github.com/ekzema/firstshop_rails4" target="_blank" style="color:#B5B5B5;"><i class="fa fa-github fa-4x"></i></a>
+    <center><div style="margin:10px 0 0 0;">
+    <!--LiveInternet counter--><script type="text/javascript">document.write("<a href='//www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t44.6;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' border=0 width=31 height=31 alt='' title='LiveInternet'><\/a>")</script><!--/LiveInternet-->
+     </div></center>
+      <div class="copyright" style="margin:0 0 10px 0;">Copyright © 2015.</div>
+    </div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<center><h2>Забыли свой пароль?</h2></center>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, :class => "adminForm", "data-parsley-validate" => true }) do |f| %>
+
+<br />
+  <div class="field">
+    <%= f.label :Ваша_почта %><br />
+    <%= f.email_field :email, autofocus: true, "required" => true, "type" => "email", "data-parsley-trigger" => "change", "data-parsley-error-message" => "Введите свой e-mail" %>
+  </div>
+
+  <div class="actions">
+    <%= button_to do %>
+  <i class="fa fa-envelope-o"></i>&nbspОтправить
+<% end %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>

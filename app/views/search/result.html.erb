@@ -1,0 +1,21 @@
+﻿
+<span class="commentTitle" style="margin:-25px 0 15px 0; font-weight: normal;"><i class="fa fa-search fa-lg"></i> Результаты поиска: <strong>"<%= params[:q] %>"</strong></span>
+<ul class="LinkMenuCatalog">
+	<% @product.each do |product| %>
+		<div class="floatLinkCatalog">
+			<li>		
+		<%= link_to(product, class: "clearLink") do %>
+		<%= image_tag product.image_product.url(:thumb), title: "#{product.model}" %><br>
+	  <span><%= product.model %></span><br>
+	 <%end%>
+	 <span class="priceCatalog"><%= product.price%>$</span>
+	 <% if admin_signed_in? %>
+	<%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_product_path(product), class: "ctalogRightA clearLink" %>
+	<%= link_to '<i class="fa fa-times"></i>'.html_safe, product, class: "catalogLeftA clearLink", method: :delete, data: { confirm: "Вы уверины что хотите удалить \"#{product.model}\"" }, title: "Удалить" %>
+	 <%end%>	
+<%= button_to line_items_path(product_id: product), remote: true, class: "cartBrand " do %>
+<i class="fa fa-cart-arrow-down fa-lg"></i>&nbspКупить
+<%end%>
+		</li>
+		</div>
+<%end%>

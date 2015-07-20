@@ -1,0 +1,27 @@
+<% unless Slider.count.zero? %>
+<span class="commentTitle">Ваши слайды</span><br>
+<% end %>
+<ul class="sliderNew">
+    <% @sliders.each do |slider| %>
+      <li>
+        <%= image_tag slider.image.url(:thumb), class: "EditImage", title: slider.name %><br>
+        <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_slider_path(slider), class: "rigtA clearLink", title: "Изменить" %>
+        <%= link_to '<i class="fa fa-times"></i>'.html_safe, slider, class: "leftA clearLink", method: :delete, data: { confirm: "Вы уверены что хотите удалить слайд? #{slider.name}" }, title: "Удалить" %>
+        <%= truncate(strip_tags(slider.name), length: 35) %>
+      </li>
+    <% end %>
+    </ul>
+
+
+<br>
+
+<% if Slider.count.zero? %>
+	<span id="commentTitle" class="commentTitle">Создать слайд!</span>
+<% else %>
+	<span id="commentTitle" class="commentTitle">Добавить новый слайд</span>
+<% end %>
+<br>
+<% if alert  %>
+	<p id="alert" style="color:red; text-align: center;"><%= alert %></p>
+<% end %>
+<%= render 'form' %>

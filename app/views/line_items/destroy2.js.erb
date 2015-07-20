@@ -1,0 +1,8 @@
+<% @d2 = "1" %>
+$('#cart').html("<%=j render @cart %>");
+$('#carthide').html("<%=j render 'carts/carthide' %>");
+var cartEmpty = $('.totalHide').attr("total");
+if(cartEmpty=='0'){
+$('#cart').fadeOut();
+};
+$('#buttoncart<%=@product.id%>').html("<%=j render 'carts/buttoncart2', :product => @product.id, :product2 => @d2 %>");

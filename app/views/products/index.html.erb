@@ -1,0 +1,38 @@
+<div class="containerWrap">
+  <div class="container">
+    <div id="breadcrumbs">
+      <div class="button">
+        <span class="label"><%= link_to "Главная", :root, title: "Главная", class: "clearLink"%></span>
+        <span class="arrow"><span></span></span>
+      </div>      
+      <div class="button">
+        <span class="label"><%= link_to "Настройка сайта", admin_panel_url, title: "Настройка сайта", class: "clearLink"%></span>
+        <span class="arrow"><span></span></span>
+      </div>    
+      <div class="button">
+        <span class="label"><%= link_to 'Товары', products_path, title: 'Товары', class: "clearLink bshow"%></span>
+        <span class="arrow"><span></span></span>
+      </div>    
+    </div>
+  </div>
+</div>
+<hr color="#EDEDED" noshade size="1">
+<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-angle-double-right" style="color:#00A9FE;"></i>&nbsp;Все товары:</h2>
+<div id="category">
+	<%= render 'boxes/box_product' %>
+</div>
+<br>
+<hr color="#EDEDED" noshade size="1">
+<br>
+
+<style>
+.label .bshow{    
+    color: black;
+    line-height: 30px;
+    padding: 5px;
+}
+
+.label .bshow:hover{
+    color: black;
+}
+</style>

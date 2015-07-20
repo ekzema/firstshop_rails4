@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FirstshopRails4</title>
+    <%= stylesheet_link_tag    '/font-awesome/css/font-awesome.css' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>    
+    <%= stylesheet_link_tag    '/slick/slick.css' %>
+    <%= stylesheet_link_tag    '/parsley/parsley.css' %>
+    <%= javascript_include_tag 'application'%>
+    <%= javascript_include_tag '/parsley/parsley.min.js'%>    
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+      <%= render "catalogs/nav" %>
+       <%= form_tag({:controller => "search", :action => "result"}, method: "get", class: "search searchCentr", "data-parsley-validate" => true) do %>
+      <%= text_field_tag(:q, nil, placeholder: "Поиск товара", class: "input", "required" => true,"data-parsley-error-message" => false) %>
+      <%= button_to do %>
+  <i class="fa fa-search fa-lg"></i></i>&nbspНайти
+<% end %>
+<% end %>
+
+    <center>
+      <% if notice %>
+        <p id="notice"><%= notice %></p>
+      <% end %>
+    </center>
+     <div class="main_content">
+      <div class="left_column">
+         <% if admin_signed_in? %>
+        Ваша почта <%= current_admin.email %>
+        <%= link_to 'Выйти', destroy_admin_session_path %>
+        <%= link_to 'Изменить пользователя', edit_admin_registration_path %>
+        <% end %> 
+        <% if @cart %>
+        <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
+        <%= render :partial => 'carts/cart', :object => @cart %>
+        <% end %>
+        <% end %>
+      </div>
+      <div class="centr_column">
+        
+      <%= yield %>
+         <div id="main-container">    
+     <div id="openModal" class="modalDialog">
+     <div class="modalContent">
+    <a href="#close" title="Close" class="close">X</a>
+    <h2><i class="fa fa-cart-arrow-down fa-lg cartcolor"></i>Ваша корзина</h2>
+     <div id="carthide">
+      <%= render 'carts/carthide'%>
+      
+    </div>
+   </div>
+     </div>
+        </div>
+      </div> 
+      <div class="clear"></div>  
+     
+    </div>
+    
+    <div class="footer">
+  <div class="footerLink">
+    <ul>
+      <li><a href="/"><i class="fa fa-home fa-2x"></i></a></li>
+      <% @catalogs.each do |catalog| %>
+      <li><%= link_to "#{catalog.name}<i class='fa fa-caret-up' style='margin-left:3px; font-size:11px;'></i>".html_safe, '#' %></li>
+      <%end%>
+      <div class="clear"></div>
+    </ul>
+  </div> 
+  <a href="https://github.com/ekzema/firstshop_rails4" target="_blank" style="color:#B5B5B5;"><i class="fa fa-github fa-4x"></i></a>
+  <center><div style="margin:10px 0 0 0;">
+  <!--LiveInternet counter--><script type="text/javascript">document.write("<a href='//www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t44.6;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) + ";" + Math.random() + "' border=0 width=31 height=31 alt='' title='LiveInternet'><\/a>")</script><!--/LiveInternet-->
+   </div></center>
+    <div class="copyright" style="margin:0 0 10px 0;">Copyright © 2015.</div>
+  </div>
+  </body>
+</html>

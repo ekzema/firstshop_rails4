@@ -1,0 +1,43 @@
+<h2>Изменить <%= resource_name.to_s.humanize %></h2>
+<br>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :Почта %><br>
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Имя %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Пароль %><br>
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Подтверждение_пароля %><br>
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Текущий_пароль %><br>
+    <%= f.password_field :current_password, autocomplete: "off" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Сохранить" %>
+  </div>
+<% end %>
+
+<h3>Удалить акаунт</h3>
+<%= button_to "Удалить", registration_path(resource_name), data: { confirm: "Вы уверены что хотите удаль свой акаунт?" }, method: :delete %></p>
+<br>
+<%= link_to '<i class="fa fa-reply fa-2x"></i>'.html_safe, :back, class: 'clearLink', title: 'Назад' %>

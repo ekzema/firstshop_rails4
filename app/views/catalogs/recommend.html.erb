@@ -1,0 +1,34 @@
+<div class="containerWrap">
+	<div class="container">
+		<div id="breadcrumbs">
+			<div class="button">
+				<span class="label"><%= link_to "Главная", :root, title: "Главная", class: "clearLink"%></span>
+				<span class="arrow"><span></span></span>
+			</div>			
+			<div class="button">
+				<span class="label"><%= link_to "Рекомендуемые товары", recommend_catalogs_path, title: "Рекомендуемые товары", class: "clearLink bshow"%></span>
+				<span class="arrow"><span></span></span>
+			</div>		
+		</div>
+	</div>
+</div>
+<hr color="#EDEDED" noshade size="1">
+<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-check" style='color:#00A9FE;'></i>&nbsp;Рекомендуемые товары:</h2>
+<div id="category">
+	<%= render 'boxes/box_product' %>
+</div>
+<br>
+<hr color="#EDEDED" noshade size="1">
+<br>
+
+<style>
+.label .bshow{    
+    color: black;
+    line-height: 30px;
+    padding: 5px;
+}
+
+.label .bshow:hover{
+    color: black;
+}
+</style>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FirstshopRails4</title>
+    <%= stylesheet_link_tag    '/font-awesome/css/font-awesome.css' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>  
+    <%= stylesheet_link_tag    '/parsley/parsley.css' %>
+    <%= javascript_include_tag 'application'%>
+    <%= javascript_include_tag '/parsley/parsley.min.js'%>    
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <style>
+      body{
+        background-color: #FFFCF3 !important; 
+        background-image: none;
+      }
+
+      .parent {
+        width: 100%;
+        height: 100%;
+        display: table;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .parent > .inner {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .block {
+        margin-top: -10%;
+        padding: 20px;
+        display: inline-block;
+        text-align: left;
+        border-radius: 5px;
+        -webkit-box-shadow: 1px 1px 18px 0px rgba(50, 50, 50, 1);
+        -moz-box-shadow:    1px 1px 18px 0px rgba(50, 50, 50, 1);
+        box-shadow:         1px 1px 18px 0px rgba(50, 50, 50, 1);
+        background-color: white;
+      }
+      .block > .clearLink{
+        display: block;
+        width: 50px;
+        margin: auto;
+        text-align: center;
+        color: black;
+      }
+      @media screen and (max-height: 670px) {
+        .block {
+          margin-top: 0;
+        }
+      }
+
+     .adminForm button{
+      color: white;
+      background-color: #55C34A;
+      cursor: pointer;
+      margin: 5px 5px 5px 0;
+      padding: 5px;
+      border-radius: 5px;
+      border:none;
+      -webkit-transition: all .4s ease;
+      -moz-transition: all .4s ease;
+      -o-transition: all .4s ease;
+      -ms-transition: all .4s ease;
+      transition: all .4s ease;
+    }
+      
+     .adminForm button i{
+      font-size: 15px;
+     } 
+     
+    .adminForm [type="text"], .adminForm [type="password"]{
+      width: 150px;
+     }
+
+    .adminForm button:hover{
+      opacity: 0.8;
+    } 
+
+    </style>
+
+    <div class="parent">
+        <div class="inner">
+            <div class="block">
+              <a href="/" class="clearLink" title="Главная"><i class="fa fa-home fa-3x"></i></a>
+                <%= yield %>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+ <style>
+   @import url("/parsley/parsley.css");
+
+   select{
+    margin-bottom: 5px;
+   }
+
+.orderForm button{
+  font-family: 'Roboto Condensed', sans-serif;
+  color: white;
+  background-color: #55C34A;
+  cursor: pointer;
+  margin: 5px 5px 5px 0;
+  padding: 6px;
+  border-radius: 5px;
+  border:none;
+  -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  -ms-transition: all .4s ease;
+  transition: all .4s ease;
+}
+      
+.orderForm button i{
+  font-size: 15px;
+} 
+     
+.orderForm button:hover{
+  opacity: 0.8;
+} 
+  </style>
+<script type="text/javascript" src="/parsley/parsley.min.js"></script>
+<%= form_for(@order, html: {"data-parsley-validate" => true, class: "orderForm"}) do |f| %>
+ 
+  <div class="field">
+    <span class="redField">* </span><%= f.label :Имя %><br>
+<!-- START_HIGHLIGHT -->
+    <%= f.text_field :name, size: 40, "required" => true, "minlength" => "3", "data-parsley-trigger" => "change", "data-parsley-error-message" => "Это поле должно содержать не меньше 3 символов!"%>
+<!-- END_HIGHLIGHT -->
+  </div>
+  <div class="field">
+    <span class="redField">* </span><%= f.label :Ваш_адрес %><br>
+<!-- START_HIGHLIGHT -->
+    <%= f.text_area :address, rows: 3, cols: 40, "required" => true, "minlength" => "5", "data-parsley-trigger" => "change", "data-parsley-error-message" => "Это поле должно содержать не меньше 5-ти символов!"%>
+<!-- END_HIGHLIGHT -->
+  </div>
+  <div class="field">
+    <span class="redField">* </span><%= f.label :Почта %><br>
+<!-- START_HIGHLIGHT -->
+    <%= f.email_field :email, size: 40, "required" => true, "type" => "email", "data-parsley-trigger" => "change", "data-parsley-error-message" => "Введите свой e-mail" %>
+<!-- END_HIGHLIGHT -->
+  </div>
+  <div class="field">
+    <span class="redField">* </span><%= f.label :Тип_оплаты, for: "order_pay_type" %><br>
+<!-- START_HIGHLIGHT -->
+    <%= f.select(:pay_type, Order::PAYMENT_TYPES,  {prompt: 'Выберите способ оплаты'}, "required" => true, "data-parsley-trigger" => "change", "data-parsley-error-message" => "Вы не выбрали способ оплаты!")%>
+<!-- END_HIGHLIGHT -->
+  </div>
+  <div class="actions">
+<!-- START_HIGHLIGHT -->
+    <%= button_to do %>
+  <i class="fa fa-check"></i>&nbspОформить заказ 
+<% end %>
+<!-- END_HIGHLIGHT -->
+  </div>
+<% end %>

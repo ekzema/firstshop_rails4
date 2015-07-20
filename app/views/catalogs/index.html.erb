@@ -1,0 +1,41 @@
+<br>
+<hr color="#EDEDED" noshade size="1">
+<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-angle-double-right" style="color:#00A9FE;"></i>&nbsp;Новые товары:<sup style='color:#FF4747; font-size:13px;'> new</sup></h2>
+<ul class="LinkMenuCatalog">
+	<% @product.each do |product| %>
+		<div class="floatLinkCatalog">
+			<li>		
+		<%= link_to(product, class: "clearLink") do %>
+		<%= image_tag product.image_product.url(:thumb), title: "#{product.model}" %><br>
+	  <span><%= product.model %></span><br>
+	 <%end%>
+	 <span class="priceCatalog"><%= product.price * @course.to_i %>$</span>
+	 <% if admin_signed_in? %>
+	<%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_product_path(product), class: "ctalogRightA clearLink" %>
+	<%= link_to '<i class="fa fa-times"></i>'.html_safe, product, class: "catalogLeftA clearLink", method: :delete, data: { confirm: "Вы уверины что хотите удалить \"#{product.model}\"" }, title: "Удалить" %>
+	 <%end%>	
+	 <div id="buttoncart<%=product.id%>">
+		<%= render 'carts/buttoncart', :product => product %>
+		</div>
+		</li>
+		</div>			
+<%end%>	
+</ul>
+
+<hr color="#EDEDED" noshade size="1"><br>
+<%unless @recommend.count == 0%>
+<h2 style="text-align:center; margin:15px 0; color:#555555;"><%= link_to "<i class='fa fa-check' style='color:#00A9FE;'></i> Рекомендуемые товары:&nbsp;<sup style='color:#FF4747; font-size:15px;'>#{@recommend_find.count}</sup>".html_safe, recommend_catalogs_path, class: "clearLink" %></h2>
+<ul class="LinkMenuCatalog randomP">
+  <% @recommend.each do |recommend|%>
+    <div class="floatLinkCatalog" style="margin: 0 3px 7px 0;">
+      <li>    
+    <%= link_to(recommend, class: "clearLink") do %>
+    <%= image_tag recommend.image_product.url(:thumb), title: "#{recommend.model}" %><br>
+    <span><%= recommend.model %></span>
+   <%end%>   
+    </li>
+    </div>  
+<%end%>
+</ul>
+	<hr color="#EDEDED" noshade size="1"><br>
+<%end%>

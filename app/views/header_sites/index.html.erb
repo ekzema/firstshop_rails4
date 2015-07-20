@@ -1,0 +1,58 @@
+<div class="containerWrap">
+	<div class="container">
+		<div id="breadcrumbs">
+			<div class="button">
+				<span class="label"><%= link_to "Главная", :root, title: "Главная", class: "clearLink"%></span>
+				<span class="arrow"><span></span></span>
+			</div>			
+			<div class="button">
+				<span class="label"><%= link_to "Настройка сайта", admin_panel_url, title: "Настройка сайта", class: "clearLink"%></span>
+				<span class="arrow"><span></span></span>
+			</div>		
+			<div class="button">
+				<span class="label"><%= link_to 'Оптимизация сайта через "HEADER"', header_sites_index_url, title: 'Оптимизация сайта через "HEADER"', class: "clearLink bshow"%></span>
+				<span class="arrow"><span></span></span>
+			</div>		
+		</div>
+	</div>
+</div>
+<hr color="#EDEDED" noshade size="1">
+<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-angle-double-right" style="color:#00A9FE;"></i>&nbsp;Оптимизация сайта для поисковых машин:</h2>><br>
+<div class="setSitePage">
+<%= form_tag(("update"), {:method => :put}) do |f| %>
+<div>
+  <%= label_tag(:t, "Заголовок") %><br>
+  <%= text_field_tag(:t, @header.title, :size => 120) %>
+ </div>
+
+ <div>
+  <%= label_tag(:k, "Ключевые слова сата") %><br>
+  <%= text_field_tag(:k, @header.keywords, :size => 120) %>
+ </div>
+
+ <div>
+  <%= label_tag(:a, "Автор") %><br>
+  <%= text_field_tag(:a, @header.author, :size => 120) %>
+ </div>
+
+ <div>
+  <%= label_tag(:d, "Описание сайта") %><br>
+  <%= text_area_tag(:d, @header.description, :rows => 5, :cols => 103) %>
+ </div>
+
+  <%= submit_tag("Сохранить") %>
+<% end %>
+</div>
+
+<style>
+.label .bshow{    
+    color: black;
+    line-height: 30px;
+    padding: 5px;
+}
+
+.label .bshow:hover{
+    color: black;
+}
+</style>
+

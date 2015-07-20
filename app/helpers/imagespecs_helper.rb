@@ -1,0 +1,2 @@
+module ImagespecsHelper
+end

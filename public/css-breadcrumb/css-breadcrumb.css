@@ -1,0 +1,90 @@
+.containerWrap{
+    position: relative;
+    width: 100%;
+    background: rgb(255, 250, 224);
+}
+
+.container *{
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+.container {   
+    position: relative; 
+    overflow:hidden;
+    width:1000px;
+    height: 30px;
+    margin: auto; 
+    margin-bottom: 15px;    
+    background: rgb(255, 250, 224);
+}
+
+
+#breadcrumbs {
+    display: inline-block;    
+    padding-right: 18px;
+    border-radius: 5px;
+    
+               
+}
+.button {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: -20px;    
+}
+/*.button:hover {
+    background-color: #3465a4;
+    background: -moz-linear-gradient(bottom, #729fcf, #3465a4);
+    background: -o-linear-gradient(bottom, #729fcf, #3465a4);
+    background: -webkit-gradient(linear, left bottom, left top, from(#729fcf), to(#3465a4));
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.25);}*/
+/*.button:first-child {border-radius: 5px;}*/
+/*.button:last-child {border-radius:5px;}*/
+.label {    
+    color: white;
+    height: 30px;    
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    display: inline-block;
+    padding-left: 25px;    
+}
+
+.label a{    
+    color: silver;
+    line-height: 30px;
+    padding: 5px;
+}
+
+.label a:hover{
+    color: black;
+}
+
+
+/*.button:hover .label {text-shadow: 0 -1px 1px #729fcf, 0 1px 1px #3465a4;}*/
+.button:first-child .label {padding-left: 15px;}
+.button:last-child .label {padding-right: 15px;}
+/*.button:last-child .arrow {display: none;}*/
+.arrow {width: 17px;height: 30px;display: inline-block;vertical-align: top;overflow: hidden;margin-left: -5px;}
+.arrow span {
+    border-radius: 5px;
+    width: 24px;height: 24px;
+    display: inline-block;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    margin-left: -13px;
+    margin-top: 3px;
+    box-shadow: inset 1px 1px 0px rgba(255,255,255,0.25), 1px -1px 2px rgba(0,0,0,0.25);
+    background: rgb(255, 250, 224);
+}
+/*.button:hover .arrow span {
+    background-color: #3465a4;
+    background: -moz-linear-gradient(135deg, #729fcf, #3465a4);
+    background: -o-linear-gradient(135deg, #729fcf, #3465a4);
+    background: -webkit-gradient(linear, left top, right bottom, from(#3465a4), to(#729fcf));
+    box-shadow: -1px 1px 2px rgba(255,255,255,0.25), inset -1px 1px 1px rgba(0,0,0,0.25);
+}*/

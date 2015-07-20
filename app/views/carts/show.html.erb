@@ -1,0 +1,14 @@
+<% if @cart.line_items.empty? %>
+<p>Ваша корзина пока пустая!</p>
+<% else %>
+<% @cart.line_items.each do |item| %>
+<%= item.quantity %>&times;</td>
+<%= item.product.model %><%= item.product.price %>
+<%= link_to 'DELETE', item, method: :delete %>
+<br>
+
+<% end %>
+<%= @cart.total_price %>
+<br>
+
+<% end %>  

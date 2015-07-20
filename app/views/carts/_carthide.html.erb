@@ -1,0 +1,32 @@
+<% if @cart.line_items.empty? %>
+<p class="cartEmpty">Ваша корзина пока пустая!</p>
+<% else %>
+<% @cart.line_items.each do |item| %>
+<div class="cartLinkBlock">
+<%= link_to(item.product, class: "clearLink modelLinkCart", title: item.product.model ) do %>
+	<%= image_tag item.product.image_product.url(:cart_icon), class: "cartIcon", title: item.product.model %><%= truncate(strip_tags(item.product.model),
+	length: 30) %>&thinsp;-&thinsp;<%= item.product.price * @course.to_i %> грн
+<% end %>
+&thinsp;&thinsp;&thinsp;<%= link_to '<i class="fa fa-trash "></i>'.html_safe, line_item_path(item, product2: @d2), method: :delete, class: "clearLink trashCart", title: "Удалить товар с корзины", remote: true %>
+<%= form_for((item), remote: true, method: "put", action: "update", :html => {id: "cartNum#{item.id}"}) do |f| %>
+	<%= f.number_field :quantity, attrnum: item.id, min: 1 %> 
+<%end%>
+</div>
+<% end %>
+	<div id="quantityCart">
+	<%= render "line_items/quantity" %>
+	</div>
+<br>
+<p class="newWrite"><%= link_to '<i class="fa fa-check"></i> Оформить заказ'.html_safe, new_order_path, method: :get, class: "writeLink" %></p>
+<% end %>  
+
+<script type="text/javascript">
+$(function () {
+	$('input[type=number]').change(function () {
+		var attrNum = $(this).attr("attrnum");
+		$.post($('#cartNum' + attrNum).attr('action'),
+			$('#cartNum' + attrNum).serialize(), null, 'script');
+		return false;
+	});
+});
+</script>	

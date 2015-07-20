@@ -1,0 +1,194 @@
+#mainmenu{
+  position: relative;
+  min-width: 1000px;
+  height: 54px;
+  background-color: #372f2b;
+  margin-bottom: 10px;
+}
+
+.nav a { text-decoration: none; }
+.nav li { list-style: none; }
+
+
+.nav {
+ position: relative;
+cursor: default;
+z-index: 500;
+display: block;
+vertical-align: middle;
+width: 1000px;
+margin: auto;
+
+}
+ 
+.nav > li {
+display: block;
+float: left;
+
+}
+
+.nav > li > a {
+position: relative;
+display: block;
+z-index: 510;
+height: 51px;
+padding: 0 20px;
+line-height: 51px;
+float: left;
+font-family: 'Roboto Condensed', sans-serif;
+font-size: 15px;
+color: #fcfcfc;
+text-shadow: 0 0 1px rgba(0,0,0,.35);
+background: #372f2b;
+border-left: 1px solid #4b4441;
+border-right: 1px solid #312a27;
+border-top: 3px solid #372f2b;
+-webkit-transition: all .3s ease;
+-moz-transition: all .3s ease;
+-o-transition: all .3s ease;
+-ms-transition: all .3s ease;
+transition: all .3s ease;
+}
+
+.nav > li > .new_catalog{
+	color:#31B9FE;
+}
+.nav > li:last-child > a {
+	font-size: 13px;
+	border-right: 1px solid #4b4441;
+}
+
+.nav > li:first-child > a {
+	font-size: 13px;
+	height: 54px;
+	padding-top: 4px;
+-moz-box-sizing: border-box; /* Для Firefox */ 
+	box-sizing: border-box; /* Ширина блока с полями*/
+}
+
+.nav > li:hover > a { 
+  border-top: 3px solid #31B9FE;
+  background: #E4E7EA; 
+  color: black;
+ }
+ .nav > li:hover > #clear-link a{
+ 	color: black;
+ }
+ .nav > li > #clear-link a:hover{
+ 	color: black;
+  background: #E4E7EA; 
+ }
+
+
+.nav > li > div:not(#clear-link) {
+	position: absolute;
+	width: 100%;
+	height: 300px;
+	top: 54px;
+	left: 0;
+	overflow: hidden;
+	background-color: #E4E7EA;
+	border-radius: 0 0 5px 5px;
+	box-shadow: 0px 6px 6px rgba(0,0,0,0.175);
+}
+
+.nav > li > div{
+	display: none;
+}
+
+.nav > li > #clear-link{
+	position: absolute;
+	z-index: 511;
+	top:2px;
+	}
+
+.nav > li > #clear-link a{
+	margin-left: 10px;
+	color: silver;
+}
+
+.nav > li:hover > div:not(#clear-link) {
+overflow: visible;
+}
+
+.dropDiv .dropLinkTovar a {
+	margin-right: 5px;
+	
+	}
+
+	.dropDiv .dropLinkTovar a:first-child{
+		font-size: 12px;
+	}
+
+.dropDiv .dropLinkCreate{
+	position: absolute;
+	bottom: 0;
+	margin: 10px;
+}
+
+.dropDiv .dropLinkCreate a:hover{
+	background: #E4E7EA; 
+	color:black;
+}
+
+.wrapperDiv{
+	position: relative;
+	padding: 10px;
+	width: 790px;
+	height: 300px;
+	-moz-box-sizing: border-box; /* Для Firefox */ 
+	box-sizing: border-box; /* Ширина блока с полями*/
+}
+
+.boxImage li{
+	position: relative;
+	float: left;	
+	width: 120px;
+	height: 83px;
+	margin: 0 8px 8px 0; 
+	text-align: center;
+	border-radius: 3px;	
+}
+
+.boxImage li:hover .zWraper:hover{
+	overflow-y: visible;
+	z-index: 520;
+	height: auto;	
+	background-color: #F7FAFD;
+	-webkit-box-shadow: 3px 3px 21px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    3px 3px 21px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         3px 3px 21px 0px rgba(50, 50, 50, 0.75);	
+}
+
+.boxImage li > a > img{
+	max-width: 120px;	
+}
+
+.boxRightA{
+	position: absolute;
+	top: 3px;
+	right: 3px;
+}
+
+.boxLeftA{
+	position: absolute;
+	top: 3px;
+	left: 3px;
+}
+
+.boxImage > li > .zWraper{
+	position: absolute;
+	 overflow-x:hidden;
+	overflow-y: hidden;
+	top: 0;
+	left: 0;
+	width: 120px;
+	height: 83px;
+	padding: 2px 0 0 0;
+	border-radius: 3px;
+	-webkit-transition: all .3s linear;
+	-moz-transition: all .3s linear;
+	-o-transition: all .3s linear;
+	-ms-transition: all .3s linear;
+	transition: all .3s linear;
+	}

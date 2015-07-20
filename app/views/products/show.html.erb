@@ -1,0 +1,173 @@
+
+<hr color="#EDEDED" noshade size="1">
+<div class="beginProduct">
+  <h2><%= @product.model %>&nbsp&nbsp<%= link_to '<i class="fa fa-reply fa"></i>'.html_safe, @product.brand, class: "clearLink" %>
+    <% if admin_signed_in? %>
+   |<%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_product_path, class: "clearLink" %>
+  <% end %>
+  </h2>
+  <br>
+  <div class="headerProduct">
+  <div id="divImgPr">
+  <% if @product.image_product_file_name.nil? %>
+    <%= image_tag @product.image_product.url(:medium), title: "#{@product.model}" %>
+  <% else %>
+    <%= link_to(@product.image_product.url, class: "fancybox-thumb", title: @product.model, rel: "fancybox-thumb") do %>
+      <%= image_tag @product.image_product.url(:medium), title: "#{@product.model}" %>
+    <% end %>
+  <% end %>
+  <br>
+   <div class="caruselProduct">
+  <% @product.imagespecs.each do |imgspec| %>
+  <div>
+    <%= link_to(imgspec.image.url, class: "fancybox-thumb", title: @product.model, rel: "fancybox-thumb") do %>
+      <%= image_tag imgspec.image.url(:thumb), class: "clearLink, zoomImage" %>
+    <% end %>
+    </div>
+  <% end %>
+  </div>
+       <br>
+  </div>
+
+  <%= @product.addinformation %><br>
+  <span><%= @product.price * @course.to_i %>грн</span>
+   <div id="buttoncart<%=@product.id%>">
+    <% product = @product %>
+    <%= render 'carts/buttoncart2', :product => @product %>
+    </div>
+<div class="clear"></div>
+</div>
+</div>
+<hr color="#EDEDED" noshade size="1">
+
+<div class="descProdctWrap">
+  <div class="descProdct">
+    <% unless @product.description.blank? %>
+    <pre style="white-space: pre-line; background-color: #FFFDF7;"><p class="wrapSpace"><%= @product.description %></p></pre>
+    <br><br>
+    <%end%>
+    <table>
+    <% @product.specifications.each do |spec| %> 
+      
+        <tr>
+          <td class="columnTitle"><%= spec.title %></td>
+          <td class="tdBlank"></td>
+          <td class="column2"><%= spec.column_1 %></td>
+        </tr>
+      
+    <% end %>
+      <tr>
+        <td class="columnTitle">Производитель:</td>
+        <td class="tdBlank"></td>
+        <td class="column2"><%= @product.madein %></td>
+      </tr>
+      <tr>
+        <td class="columnTitle">Гарантия:</td>
+        <td class="tdBlank"></td>
+        <td class="column2"><%= @product.warranty %></td>
+      </tr>
+    </table>
+    <br>
+    <br>
+  </div>
+</div>
+<hr color="#EDEDED" noshade size="1"><br>
+
+<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-angle-double-right" style="color:#00A9FE;"></i>&nbsp;Похожие товары:</h2>
+<ul class="LinkMenuCatalog randomP">
+  <% @product_random.each do |product_random|%>
+    <div class="floatLinkCatalog">
+      <li>    
+    <%= link_to(product_random, class: "clearLink") do %>
+    <%= image_tag product_random.image_product.url(:thumb), title: "#{product_random.model}" %><br>
+    <span><%= product_random.model %></span>
+   <%end%>   
+    </li>
+    </div>  
+<%end%>
+</ul>
+<hr color="#EDEDED" noshade size="1"><br>
+
+<% unless SettingPage.first.comments.nil? %>
+	<% unless @product.comments.count.zero? %>
+		<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-angle-double-right" style="color:#00A9FE;"></i>&nbsp;Отзывы покупателей:</h2>
+	<% end %>
+	<div class="ComBodyWrap">
+		<% @product.comments.each do |comment| %> 
+			<div class='commentShow'>
+				<p><strong><%= comment.name %></strong>&nbsp<%= comment.created_at.strftime("%d.%m.%Y") %></p>
+				<%= comment.body %><br>
+				<% if admin_signed_in? %>
+				<%= link_to '<i class="fa fa-times"></i>'.html_safe, comment, class: 'clearLink', method: :delete, data: {confirm: "Вы уверены что хотите удалить комментарий?"}, title: 'Удалить комментарий' %>
+				<% end %>
+				<div class="commentHide">Ответить</div>
+						<%= form_for ([comment, Comment.new]), :html => {:class => "commentForm formHide", "data-parsley-validate" => true} do |f| %>
+			<div>
+			  <span class="redField">* </span><%= f.label :Имя %><br>
+			  <%= f.text_field :name, class: 'commentField', "required" => true, "minlength" => "3", "data-parsley-trigger" => "change", "data-parsley-error-message" => "Это поле должно содержать не меньше 3 символов!" %>
+			</div>
+			<div>
+			  <span class="redField">* </span><%= f.label :Текст %><br>
+		    <%= f.text_area :body, class: 'commentArea', "required" => true, "data-parsley-trigger" => "change", "data-parsley-error-message" => "Это поле не может быть пустым!" %>
+		  </div>
+		<%= button_to do %>
+		  <i class="fa fa-pencil fa-lg"></i>&nbspОтправить
+		<% end %>
+		<% end %>
+			</div>
+
+				<% comment.comments.each do |double_comment| %> 
+				<div class='commentDoubleShow'>
+				<p><strong><%= double_comment.name %></strong>&nbsp<%= double_comment.created_at.strftime("%d.%m.%Y") %></p>
+				<%= double_comment.body %><br>
+				<% if admin_signed_in? %>
+				<%= link_to '<i class="fa fa-times"></i>'.html_safe, double_comment, class: 'clearLink', method: :delete, data: {confirm: "Вы уверены что хотите удалить комментарий?"}, title: 'Удалить комментарий' %>
+				<% end %>
+			</div>
+		<% end %>
+		<% end %>
+	</div><br>
+	
+	<div class="commFormWrap">
+	<% if @product.comments.count.zero? %>
+		<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-commenting" style='color:#00A9FE;'></i> Оставить свой первый отзыв!:</h2>
+	<% else %>
+		<h2 style="text-align:center; margin:15px 0; color:#555555;"><i class="fa fa-commenting" style='color:#00A9FE;'></i> Оставить отзыв:</h2>
+	<% end %>
+	   <center>
+	      <% if alert  %>
+	      	<br>
+	        <p id="alert" style="color:red;"><%= alert %></p>
+	      <% end %>
+	    </center>	  
+			<%= form_for ([@product, Comment.new]), :html => {:class => "commentForm", "data-parsley-validate" => true} do |f| %>
+			<div>
+			  <span class="redField">* </span><%= f.label :Имя %><br>
+			  <%= f.text_field :name, class: 'commentField', "required" => true, "minlength" => "3", "data-parsley-trigger" => "change", "data-parsley-error-message" => "Это поле должно содержать не меньше 3 символов!" %>
+			</div>
+			<div class="clear"></div>
+			<div>
+			  <span class="redField">* </span><%= f.label :Текст %><br>
+		    <%= f.text_area :body, class: 'commentArea', "required" => true, "data-parsley-trigger" => "change", "data-parsley-error-message" => "Это поле не может быть пустым!" %>
+		  </div>
+		  <div class="clear"></div>
+		<%= button_to do %>
+		  <i class="fa fa-pencil fa-lg"></i>&nbspОтправить
+		<% end %>
+		<% end %>
+	</div>
+<% end %>
+
+
+<style>
+.label .prshow{    
+    color: black;
+    line-height: 30px;
+    padding: 5px;
+}
+
+.label .prshow:hover{
+    color: black;
+}
+</style>
+<hr color="#EDEDED" noshade size="1"><br>

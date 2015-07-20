@@ -1,0 +1,37 @@
+<%= nested_form_for([@catalog, @box], html: { multipart: true }) do |f| %>
+    <div class="field">
+    <%= f.label :Название %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Ключевые слова для поисковых машин(Слова перечислять через запятую!)" %><br />
+    <%= f.text_field :meta_tags, :size => 120 %>
+  </div>
+
+
+  <%= image_tag @box.image.url(:thumb), title: "#{@box.name}", class: "EditImage" %><%= f.file_field :image %><% unless @box.image_file_name.nil? %>
+ <%= link_to("Удалить", {action: :delete_attachment, id: @box.id}, method: :put,data: { confirm: 'Вы уверины что хотите удалить?' }) %>
+ <% end %><br><br>
+
+<%= f.fields_for :filtrs do |filtr| %>
+<p>
+    <%= filtr.label :Заголовок %><br />
+    <%= filtr.text_field :body %>     
+   <%=  filtr.link_to_remove "Удалить" %>
+  </p>
+<% end %>
+
+
+<p>
+    <p><%= f.link_to_add "Добавить категорию", :filtrs %></p>
+
+
+  <div class="actions">
+    <%= f.submit 'Сохранить' %>
+  </div>
+<% end %>
+
+
+
+

@@ -1,0 +1,37 @@
+<center><h2>Регистрация</h2></center>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => "new_admin form-inline adminForm", "data-parsley-validate" => true} ) do |f| %>
+ 
+<div class="field">
+    <span class="redField">* </span><%= f.label :Имя %><br>
+    <%= f.text_field :name, autofocus: true, class: "form-control", "required" => true, "minlength" => "5", "data-parsley-trigger" => "change", "data-parsley-error-message" => "Это поле должно содержать не меньше 5-ти символов!"%>
+  </div>
+
+  <div class="field">
+    <span class="redField">* </span><%= f.label :Почта %><br>
+    <%= f.email_field :email, class: "form-control", "required" => true, "type" => "email", "data-parsley-trigger" => "change", "data-parsley-error-message" => "Введите свой e-mail" %>
+  </div>
+
+  <div class="field">
+    <span class="redField">* </span><%= f.label :Пароль %>
+    <% if @validatable %>
+    <em>(<%= @minimum_password_length %> минимально символов)</em>
+    <% end %><br>
+    <%= f.password_field :password, autocomplete: "off", class: "form-control", id: "passwordField", "required" => true, "minlength" => "5", "data-parsley-trigger" => "change", "data-parsley-error-message" => "Пароль должен быть не меньше 5-ти символов!" %>
+  </div>
+
+  <div class="field">
+    <span class="redField">* </span><%= f.label :Подтверждение_пароля %><br>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", "required" => true, "data-parsley-equalto" => "#passwordField", "data-parsley-trigger" => "change", "data-parsley-error-message" => "Ваш пароль не совпадает!" %>
+  </div>
+  <div class="actions">
+   
+<%= button_to do %>
+  <i class="fa fa-angle-double-right"></i>&nbspРегистрация
+<% end %>
+
+  </div><br><br>
+
+<% end %>
+<%= render "devise/shared/login" %>
+<%= render "devise/shared/links" %>

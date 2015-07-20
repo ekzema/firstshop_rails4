@@ -1,0 +1,81 @@
+  <div id="mainmenu">
+                      <% if admin_signed_in? %> 
+        <div class="admnHide">
+        <div class="settingWrap">
+          <ul class="settingPanel">
+            <li class="menuList"><a href="#" class="menuTitle"><i class="fa fa-cogs fa-lg" style="color:#68F05B;"></i>Настройки</a>
+              <ul class="menuDrop">
+                <li><%= link_to "Настройки сайта", admin_panel_url, class: "adminNav" %>           
+                <li><%= link_to "#{current_admin.name}", edit_admin_registration_path, class: "adminNav" %></li>
+                <li><%= link_to 'Админ-панель', rails_admin_url, class: "adminNav" %></li>
+                <li><%= link_to 'Слайды', sliders_url, class: "adminNav" %></li>               
+              </ul> 
+            </li>  
+          </ul>    
+        </div> 
+        <%= link_to "<i class='fa fa-sign-out fa-lg'></i> Выйти".html_safe, destroy_admin_session_path, class: "outAdmin" %>
+        </div>
+        <% end %> 
+    <ul class="nav">
+      <li>
+        <a href="/"><i class="fa fa-home fa-2x"></i></a>
+      </li>
+      <% @catalogs.each do |catalog| %>
+        <li>
+          <%= link_to "#{catalog.name}<i class='fa fa-caret-down' style='margin-left:5px; font-size:11px;'></i>".html_safe, '#' %>
+          <div id="clear-link">
+            <% if admin_signed_in? %>
+              <%= link_to '<i class="fa fa-times"></i>'.html_safe, catalog, method: :delete, data: { confirm: "Вы уверины что хотите удалить \"#{catalog.name}\"" }, class: "clearLink", title: "Удалить" %><%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_catalog_path(catalog), class: "clearLink", title: "Изменить" %>
+            <% end %>
+          </div>
+          <div class="dropDiv">
+          <% unless catalog.image_catalog_file_name.nil? %>
+            <div class="floatNavImage">
+              <div class="navImage">
+              <% if admin_signed_in? %>
+             <%= link_to('<i class="fa fa-times"></i>'.html_safe, {action: :delete_attachment, controller: "/catalogs", id: catalog.id}, method: :put,data: { confirm: 'Вы уверины что хотите удалить?' }, class: "navLeftA clearLink", title: "Удалить") %>
+             <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_catalog_path(catalog), class: "navRightA clearLink", title: "Изменить" %>
+              <% end %>
+                <%= image_tag catalog.image_catalog.url(:medium), title: "#{catalog.name}" %>
+              </div>
+            </div>
+            <% end %>
+            <div class="wrapperDiv">
+              <% catalog.boxes.each do |box| %>
+                
+                  <ul class="boxImage">
+                    <li><div class="zWraper">
+                  <%= link_to(box, class: "clearLink") do %>
+                  <%= image_tag box.image.url(:medium), title: "#{box.name}" %><br>
+                  <%= (box.name) %>
+                  <% end %> 
+                <% if admin_signed_in? %>
+                  <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_box_path(box), class: "boxLeftA clearLink", title: "Изменить" %><%= link_to '<i class="fa fa-times"></i>'.html_safe, box, method: :delete, data: { confirm: "Вы уверины что хотите удалить \"#{box.name}\""}, class: "boxRightA clearLink", title: "Удалить" %>
+                <% end %> 
+              </div>
+              </li>
+                </ul>                 
+              <% end %>
+              <div class="clear"></div>
+              <% if admin_signed_in? %>
+                <br>
+                <span class="dropLinkCreate"><%= link_to '<i class="fa fa-plus fa-2x"></i> '.html_safe, new_catalog_box_path(catalog.id), title: "Создать" %></span>
+              <% end %>
+            </div>
+          </div>        
+        </li>
+      <% end %>
+      <% if admin_signed_in? %>
+      <li>
+        <%= link_to '<i class="fa fa-plus "></i>'.html_safe, new_catalog_path, class: "new_catalog" %>
+        </li>
+      <% end %>
+      
+    </ul>
+    
+    <%= form_tag({:controller => "search", :action => "result"}, method: "get", class: "search searchRight", "data-parsley-validate" => true) do %>
+      <%= text_field_tag(:q, nil, placeholder: "Поиск товара", class: "input", "required" => true,"data-parsley-error-message" => false) %>
+    <% end %>
+  </div>
+
+  
